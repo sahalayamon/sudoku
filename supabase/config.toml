@@ -1,0 +1,6 @@
+# Minimal Supabase CLI config. Run `supabase init` for the full file if you need local auth settings.
+project_id = "sudoku"
+
+[functions.generate-daily]
+# The function authenticates callers itself (service role key), so the gateway JWT check is off.
+verify_jwt = false

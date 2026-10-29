@@ -1,0 +1,1198 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* -------------------------------------------------------------------------- */
+/* Tokens                                                                     */
+/* Light: warm paper + ink + one verdigris accent.                            */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  --bg: #f4f2ee;
+  --surface: #fbfaf7;
+  --surface-2: #efece6;
+  --surface-3: #e7e3db;
+  --ink: #17181a;
+  --ink-2: #565a62;
+  --ink-3: #666b73;
+  --line: #e4e0d8;
+  --line-strong: #cdc8bc;
+
+  --accent: #2a7468;
+  --accent-hover: #226157;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(42 116 104 / 0.1);
+  --accent-softer: rgb(42 116 104 / 0.06);
+
+  --danger: #b2402c;
+  --danger-soft: rgb(178 64 44 / 0.1);
+  --hint: #8f5d08;
+  --hint-soft: rgb(190 128 24 / 0.16);
+  --hint-faint: rgb(190 128 24 / 0.08);
+
+  --board-bg: #fdfcfa;
+  --grid-thin: #dcd8cf;
+  --grid-strong: #2b2e33;
+  --peer-bg: rgb(23 24 26 / 0.05);
+  --same-bg: rgb(42 116 104 / 0.15);
+  --selected-bg: rgb(42 116 104 / 0.24);
+
+  --shadow-board: 0 1px 2px rgb(23 24 26 / 0.05), 0 18px 40px -22px rgb(23 24 26 / 0.28);
+  --shadow-pop: 0 1px 2px rgb(23 24 26 / 0.06), 0 12px 32px -12px rgb(23 24 26 / 0.22);
+  --scrim: rgb(23 24 26 / 0.32);
+
+  --ease-out: cubic-bezier(0.22, 0.8, 0.28, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+/* Dark is its own palette: graphite with a cool cast, warm off-white ink, lifted mint accent. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0d0f11;
+  --surface: #14171a;
+  --surface-2: #1b1f23;
+  --surface-3: #232830;
+  --ink: #ece9e3;
+  --ink-2: #a5a9b1;
+  --ink-3: #7d828a;
+  --line: #23282d;
+  --line-strong: #353b43;
+
+  --accent: #62c7b0;
+  --accent-hover: #7ad6c1;
+  --accent-ink: #06201a;
+  --accent-soft: rgb(98 199 176 / 0.14);
+  --accent-softer: rgb(98 199 176 / 0.08);
+
+  --danger: #f08a74;
+  --danger-soft: rgb(240 138 116 / 0.14);
+  --hint: #e6b45c;
+  --hint-soft: rgb(230 180 92 / 0.15);
+  --hint-faint: rgb(230 180 92 / 0.08);
+
+  --board-bg: #111417;
+  --grid-thin: #262b31;
+  --grid-strong: #6b727c;
+  --peer-bg: rgb(236 233 227 / 0.07);
+  --same-bg: rgb(98 199 176 / 0.17);
+  --selected-bg: rgb(98 199 176 / 0.28);
+
+  --shadow-board: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 24px 48px -24px rgb(0 0 0 / 0.7);
+  --shadow-pop: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 16px 40px -12px rgb(0 0 0 / 0.65);
+  --scrim: rgb(0 0 0 / 0.55);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Accent palettes                                                            */
+/* "verdigris" is the base palette, defined by the base tokens above. Each    */
+/* palette re-colours the accent family for light and dark.                   */
+/* -------------------------------------------------------------------------- */
+
+:root[data-theme="light"][data-palette="indigo"] {
+  --accent: #4651c7;
+  --accent-hover: #3a44ad;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(70 81 199 / 0.1);
+  --accent-softer: rgb(70 81 199 / 0.06);
+  --same-bg: rgb(70 81 199 / 0.14);
+  --selected-bg: rgb(70 81 199 / 0.22);
+}
+
+:root[data-theme="dark"][data-palette="indigo"] {
+  --accent: #9aa4ff;
+  --accent-hover: #b3bbff;
+  --accent-ink: #0b0e33;
+  --accent-soft: rgb(154 164 255 / 0.15);
+  --accent-softer: rgb(154 164 255 / 0.08);
+  --same-bg: rgb(154 164 255 / 0.17);
+  --selected-bg: rgb(154 164 255 / 0.28);
+}
+
+:root[data-theme="light"][data-palette="ocean"] {
+  --accent: #1f6fb2;
+  --accent-hover: #195c94;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(31 111 178 / 0.1);
+  --accent-softer: rgb(31 111 178 / 0.06);
+  --same-bg: rgb(31 111 178 / 0.14);
+  --selected-bg: rgb(31 111 178 / 0.22);
+}
+
+:root[data-theme="dark"][data-palette="ocean"] {
+  --accent: #7cc0f5;
+  --accent-hover: #97cff8;
+  --accent-ink: #06223a;
+  --accent-soft: rgb(124 192 245 / 0.15);
+  --accent-softer: rgb(124 192 245 / 0.08);
+  --same-bg: rgb(124 192 245 / 0.17);
+  --selected-bg: rgb(124 192 245 / 0.28);
+}
+
+:root[data-theme="light"][data-palette="plum"] {
+  --accent: #8a3f8f;
+  --accent-hover: #733478;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(138 63 143 / 0.1);
+  --accent-softer: rgb(138 63 143 / 0.06);
+  --same-bg: rgb(138 63 143 / 0.14);
+  --selected-bg: rgb(138 63 143 / 0.22);
+}
+
+:root[data-theme="dark"][data-palette="plum"] {
+  --accent: #d8a2de;
+  --accent-hover: #e4b8e9;
+  --accent-ink: #2c0f30;
+  --accent-soft: rgb(216 162 222 / 0.15);
+  --accent-softer: rgb(216 162 222 / 0.08);
+  --same-bg: rgb(216 162 222 / 0.17);
+  --selected-bg: rgb(216 162 222 / 0.28);
+}
+
+:root[data-theme="light"][data-palette="graphite"] {
+  --accent: #2b2e33;
+  --accent-hover: #17181a;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(43 46 51 / 0.08);
+  --accent-softer: rgb(43 46 51 / 0.048);
+  --same-bg: rgb(43 46 51 / 0.112);
+  --selected-bg: rgb(43 46 51 / 0.176);
+}
+
+:root[data-theme="dark"][data-palette="graphite"] {
+  --accent: #e8e5df;
+  --accent-hover: #ffffff;
+  --accent-ink: #111416;
+  --accent-soft: rgb(232 229 223 / 0.12);
+  --accent-softer: rgb(232 229 223 / 0.064);
+  --same-bg: rgb(232 229 223 / 0.136);
+  --selected-bg: rgb(232 229 223 / 0.224);
+}
+
+/* BEGIN generated themes (scripts/generate-themes.mjs) */
+/* Full themes: neutrals + accent, each for light and dark. */
+
+:root[data-theme="light"][data-palette="midnight"] {
+  --bg: #eef1f8;
+  --surface: #f8f9fd;
+  --surface-2: #e6eaf5;
+  --surface-3: #dbe1f0;
+  --ink: #121a33;
+  --ink-2: #4a5473;
+  --ink-3: #5f6a8c;
+  --line: #dde2f0;
+  --line-strong: #c3cbe3;
+  --accent: #3b5bdb;
+  --accent-hover: #2f49b3;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(59 91 219 / 0.1);
+  --accent-softer: rgb(59 91 219 / 0.06);
+  --board-bg: #fbfcff;
+  --grid-thin: #d3d9ec;
+  --grid-strong: #1f2a4d;
+  --peer-bg: rgb(18 26 51 / 0.05);
+  --same-bg: rgb(59 91 219 / 0.14);
+  --selected-bg: rgb(59 91 219 / 0.22);
+  --scrim: rgb(10 12 20 / 0.36);
+}
+
+:root[data-theme="dark"][data-palette="midnight"] {
+  --bg: #0a0f1f;
+  --surface: #101730;
+  --surface-2: #172040;
+  --surface-3: #1f2a52;
+  --ink: #e8ecfa;
+  --ink-2: #a6aed0;
+  --ink-3: #8089b0;
+  --line: #1c2748;
+  --line-strong: #2b3a6a;
+  --accent: #7aa2ff;
+  --accent-hover: #99b8ff;
+  --accent-ink: #0a1233;
+  --accent-soft: rgb(122 162 255 / 0.15);
+  --accent-softer: rgb(122 162 255 / 0.08);
+  --board-bg: #0d1328;
+  --grid-thin: #212c52;
+  --grid-strong: #7684b8;
+  --peer-bg: rgb(180 195 255 / 0.07);
+  --same-bg: rgb(122 162 255 / 0.17);
+  --selected-bg: rgb(122 162 255 / 0.28);
+  --scrim: rgb(0 0 0 / 0.6);
+}
+
+:root[data-theme="light"][data-palette="sepia"] {
+  --bg: #f1e8d6;
+  --surface: #f8f1e2;
+  --surface-2: #ebdfc8;
+  --surface-3: #e0d1b4;
+  --ink: #2b2118;
+  --ink-2: #5a4a37;
+  --ink-3: #6f5e48;
+  --line: #e0d3b9;
+  --line-strong: #cbb998;
+  --accent: #7a5230;
+  --accent-hover: #63421f;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(122 82 48 / 0.1);
+  --accent-softer: rgb(122 82 48 / 0.06);
+  --board-bg: #fbf6e9;
+  --grid-thin: #dccdae;
+  --grid-strong: #3a2d20;
+  --peer-bg: rgb(43 33 24 / 0.05);
+  --same-bg: rgb(122 82 48 / 0.14);
+  --selected-bg: rgb(122 82 48 / 0.22);
+  --hint: #2f6f5e;
+  --hint-soft: rgb(47 111 94 / 0.16);
+  --hint-faint: rgb(47 111 94 / 0.08);
+  --scrim: rgb(10 12 20 / 0.36);
+}
+
+:root[data-theme="dark"][data-palette="sepia"] {
+  --bg: #1a140d;
+  --surface: #231b12;
+  --surface-2: #2c2217;
+  --surface-3: #382c1d;
+  --ink: #f0e6d2;
+  --ink-2: #b9a98c;
+  --ink-3: #9a8a6d;
+  --line: #2f2518;
+  --line-strong: #46372a;
+  --accent: #d7a384;
+  --accent-hover: #e3b89d;
+  --accent-ink: #2a1a0e;
+  --accent-soft: rgb(215 163 132 / 0.15);
+  --accent-softer: rgb(215 163 132 / 0.08);
+  --board-bg: #1e1710;
+  --grid-thin: #33281b;
+  --grid-strong: #9a8668;
+  --peer-bg: rgb(240 230 210 / 0.07);
+  --same-bg: rgb(215 163 132 / 0.17);
+  --selected-bg: rgb(215 163 132 / 0.28);
+  --hint: #7fc4ae;
+  --hint-soft: rgb(127 196 174 / 0.2);
+  --hint-faint: rgb(127 196 174 / 0.1);
+  --scrim: rgb(0 0 0 / 0.6);
+}
+
+:root[data-theme="light"][data-palette="sage"] {
+  --bg: #eef0e8;
+  --surface: #f7f8f2;
+  --surface-2: #e4e8dc;
+  --surface-3: #d9dfce;
+  --ink: #1b2118;
+  --ink-2: #4c5746;
+  --ink-3: #5f6a58;
+  --line: #dde2d3;
+  --line-strong: #c4ccb5;
+  --accent: #46702a;
+  --accent-hover: #365a1f;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(70 112 42 / 0.1);
+  --accent-softer: rgb(70 112 42 / 0.06);
+  --board-bg: #fafbf6;
+  --grid-thin: #d3dac6;
+  --grid-strong: #28321f;
+  --peer-bg: rgb(27 33 24 / 0.05);
+  --same-bg: rgb(70 112 42 / 0.14);
+  --selected-bg: rgb(70 112 42 / 0.22);
+  --scrim: rgb(10 12 20 / 0.36);
+}
+
+:root[data-theme="dark"][data-palette="sage"] {
+  --bg: #0f140d;
+  --surface: #161d13;
+  --surface-2: #1e271a;
+  --surface-3: #283323;
+  --ink: #e8eddf;
+  --ink-2: #a7b29a;
+  --ink-3: #869279;
+  --line: #1f291b;
+  --line-strong: #314029;
+  --accent: #a3d977;
+  --accent-hover: #b8e592;
+  --accent-ink: #12220a;
+  --accent-soft: rgb(163 217 119 / 0.15);
+  --accent-softer: rgb(163 217 119 / 0.08);
+  --board-bg: #121810;
+  --grid-thin: #243020;
+  --grid-strong: #7a8c6a;
+  --peer-bg: rgb(232 237 223 / 0.07);
+  --same-bg: rgb(163 217 119 / 0.17);
+  --selected-bg: rgb(163 217 119 / 0.28);
+  --scrim: rgb(0 0 0 / 0.6);
+}
+
+:root[data-theme="light"][data-palette="slate"] {
+  --bg: #eceef1;
+  --surface: #f6f7f9;
+  --surface-2: #e1e5ea;
+  --surface-3: #d5dae1;
+  --ink: #14181d;
+  --ink-2: #48505b;
+  --ink-3: #5c6571;
+  --line: #dbdfe5;
+  --line-strong: #c2c8d1;
+  --accent: #3d5a80;
+  --accent-hover: #2f4766;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(61 90 128 / 0.1);
+  --accent-softer: rgb(61 90 128 / 0.06);
+  --board-bg: #fafbfc;
+  --grid-thin: #d1d6de;
+  --grid-strong: #1d232b;
+  --peer-bg: rgb(20 24 29 / 0.05);
+  --same-bg: rgb(61 90 128 / 0.14);
+  --selected-bg: rgb(61 90 128 / 0.22);
+  --scrim: rgb(10 12 20 / 0.36);
+}
+
+:root[data-theme="dark"][data-palette="slate"] {
+  --bg: #101317;
+  --surface: #171b21;
+  --surface-2: #1e242c;
+  --surface-3: #272e38;
+  --ink: #e6e9ee;
+  --ink-2: #a3abb7;
+  --ink-3: #808996;
+  --line: #222831;
+  --line-strong: #343c48;
+  --accent: #8fb0d4;
+  --accent-hover: #a8c3e1;
+  --accent-ink: #0d1824;
+  --accent-soft: rgb(143 176 212 / 0.15);
+  --accent-softer: rgb(143 176 212 / 0.08);
+  --board-bg: #13171c;
+  --grid-thin: #262d37;
+  --grid-strong: #7b8696;
+  --peer-bg: rgb(230 233 238 / 0.07);
+  --same-bg: rgb(143 176 212 / 0.17);
+  --selected-bg: rgb(143 176 212 / 0.28);
+  --scrim: rgb(0 0 0 / 0.6);
+}
+
+:root[data-theme="light"][data-palette="contrast"] {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f0f0f0;
+  --surface-3: #e2e2e2;
+  --ink: #000000;
+  --ink-2: #1f1f1f;
+  --ink-3: #3d3d3d;
+  --line: #767676;
+  --line-strong: #000000;
+  --accent: #0033cc;
+  --accent-hover: #00269b;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(0 51 204 / 0.12);
+  --accent-softer: rgb(0 51 204 / 0.07);
+  --board-bg: #ffffff;
+  --grid-thin: #8c8c8c;
+  --grid-strong: #000000;
+  --peer-bg: rgb(0 0 0 / 0.09);
+  --same-bg: rgb(0 51 204 / 0.2);
+  --selected-bg: rgb(0 51 204 / 0.32);
+  --danger: #b00020;
+  --danger-soft: rgb(176 0 32 / 0.12);
+  --hint: #6b4500;
+  --hint-soft: rgb(107 69 0 / 0.16);
+  --hint-faint: rgb(107 69 0 / 0.08);
+  --scrim: rgb(10 12 20 / 0.36);
+}
+
+:root[data-theme="dark"][data-palette="contrast"] {
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface-2: #1a1a1a;
+  --surface-3: #2a2a2a;
+  --ink: #ffffff;
+  --ink-2: #e6e6e6;
+  --ink-3: #c4c4c4;
+  --line: #8a8a8a;
+  --line-strong: #ffffff;
+  --accent: #7cc4ff;
+  --accent-hover: #a5d8ff;
+  --accent-ink: #000000;
+  --accent-soft: rgb(124 196 255 / 0.18);
+  --accent-softer: rgb(124 196 255 / 0.1);
+  --board-bg: #000000;
+  --grid-thin: #8a8a8a;
+  --grid-strong: #ffffff;
+  --peer-bg: rgb(255 255 255 / 0.13);
+  --same-bg: rgb(124 196 255 / 0.26);
+  --selected-bg: rgb(124 196 255 / 0.42);
+  --danger: #ff8a80;
+  --danger-soft: rgb(255 138 128 / 0.18);
+  --hint: #ffd166;
+  --hint-soft: rgb(255 209 102 / 0.2);
+  --hint-faint: rgb(255 209 102 / 0.1);
+  --scrim: rgb(0 0 0 / 0.6);
+}
+
+/* END generated themes */
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-softer: var(--accent-softer);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-hint: var(--hint);
+  --color-hint-soft: var(--hint-soft);
+
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Outfit Variable", "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --ease-out: cubic-bezier(0.22, 0.8, 0.28, 1);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Base                                                                       */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    background: var(--bg);
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+  }
+
+  /* No focus box anywhere, by design. */
+  :focus,
+  :focus-visible {
+    outline: none;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+}
+
+/* Utility-ish building blocks that stay readable at the call site. */
+@layer components {
+  .eyebrow {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 560;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .hairline {
+    border: 1px solid var(--line);
+  }
+
+  .scroll-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scroll-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sr-only-live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Sudoku board                                                               */
+/* -------------------------------------------------------------------------- */
+
+@layer components {
+  .board-frame {
+    position: relative;
+    width: var(--board-size, 360px);
+    height: var(--board-size, 360px);
+    flex: none;
+    container-type: inline-size;
+    border-radius: 12px;
+    background: var(--board-bg);
+    box-shadow: none;
+    overflow: hidden;
+    transition:
+      border-color 400ms var(--ease-out),
+      box-shadow 400ms var(--ease-out);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+  }
+
+  .board-frame[data-solved="true"] {
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  .board-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    grid-template-rows: repeat(9, minmax(0, 1fr));
+    transition:
+      filter 260ms var(--ease-out),
+      opacity 260ms var(--ease-out);
+  }
+
+  .board-grid[data-hidden="true"] {
+    filter: blur(14px);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .board-row {
+    display: contents;
+  }
+
+  .board-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .board-lines line {
+    vector-effect: non-scaling-stroke;
+  }
+
+  .board-selection {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+    pointer-events: none;
+    z-index: 3;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 2.5px var(--accent);
+    transition:
+      transform 140ms var(--ease-out),
+      opacity 120ms var(--ease-out);
+    will-change: transform;
+  }
+
+  .cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+    background: var(--cell-bg, transparent);
+    color: var(--ink);
+    font-variant-numeric: lining-nums proportional-nums;
+    font-size: calc(100cqw / 9 * 0.58);
+    line-height: 1;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 120ms var(--ease-out);
+  }
+
+  .cell:focus-visible {
+    outline: none;
+  }
+
+  .cell[data-peer="true"] {
+    --cell-bg: var(--peer-bg);
+  }
+  .cell[data-hint-unit="true"] {
+    --cell-bg: var(--hint-faint);
+  }
+  .cell[data-same="true"] {
+    --cell-bg: var(--same-bg);
+  }
+  .cell[data-selected="true"] {
+    --cell-bg: var(--selected-bg);
+  }
+  .cell[data-hint="cause"] {
+    --cell-bg: var(--hint-soft);
+  }
+  .cell[data-hint="eliminate"] {
+    --cell-bg: var(--hint-faint);
+  }
+  .cell[data-hint="target"] {
+    --cell-bg: var(--hint-faint);
+  }
+  .cell[data-invalid="true"] {
+    --cell-bg: var(--danger-soft);
+  }
+
+  .cell[data-hint="target"]::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 2px dashed var(--hint);
+    border-radius: 4px;
+    animation: hint-breathe 1.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .cell[data-invalid="true"]::after {
+    content: "";
+    position: absolute;
+    top: 9%;
+    right: 9%;
+    width: 11%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--danger);
+  }
+
+  .cell-value {
+    display: block;
+    font-weight: 440;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+
+  .cell[data-given="true"] .cell-value {
+    font-weight: 620;
+    color: var(--ink);
+  }
+
+  .cell[data-invalid="true"] .cell-value {
+    color: var(--danger);
+  }
+
+  .cell-value[data-fx="pop"] {
+    animation: cell-pop 240ms var(--ease-spring);
+  }
+  .cell-value[data-fx="hint"] {
+    animation: cell-pop 360ms var(--ease-spring);
+    color: var(--hint);
+  }
+  .cell-value[data-fx="shake"] {
+    animation: cell-shake 320ms var(--ease-out);
+  }
+  .cell-value[data-fx="ripple"] {
+    animation: cell-ripple 640ms var(--ease-out) both;
+    animation-delay: var(--fx-delay, 0ms);
+  }
+
+  .cell-notes {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 7% 8%;
+    font-size: calc(100cqw / 9 * 0.235);
+    line-height: 1;
+    font-weight: 500;
+    color: var(--ink-2);
+    pointer-events: none;
+  }
+
+  .cell-notes span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cell-notes span[data-match="true"] {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .board-frame[data-wave="true"] .cell {
+    animation: solved-wave 900ms ease-in-out both;
+    animation-delay: calc((var(--r, 0) + var(--c, 0)) * 55ms);
+  }
+
+  .board-frame[data-solved="true"] .cell-value {
+    color: var(--accent);
+  }
+}
+
+@keyframes cell-pop {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.2;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes cell-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(-3px);
+  }
+  36% {
+    transform: translateX(3px);
+  }
+  54% {
+    transform: translateX(-2px);
+  }
+  72% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes cell-ripple {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.22);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes solved-wave {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+  45% {
+    background-color: var(--accent-soft);
+  }
+}
+
+@keyframes hint-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes splash-slide {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Game screen layout                                                         */
+/* Phone: info, board, then controls. Tablet portrait: controls split in two. */
+/* Landscape / desktop: board left, info + controls on the right.             */
+/* -------------------------------------------------------------------------- */
+
+@custom-variant side (@media (min-width: 768px) and (orientation: landscape));
+
+@layer components {
+  .game-shell {
+    --gutter: 12px;
+    --chrome: calc(330px + var(--safe-top) + var(--safe-bottom));
+    --board-size: min(calc(100vw - var(--gutter) * 2 - var(--safe-left) - var(--safe-right)), calc(100dvh - var(--chrome)), 640px);
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .game-bar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 52px;
+    padding: 0 6px;
+  }
+
+  .game-layout {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: var(--board-size);
+    grid-template-areas: "info" "board" "controls";
+    grid-template-rows: auto auto minmax(0, 1fr);
+    justify-content: center;
+    align-content: stretch;
+    row-gap: 10px;
+    padding: 0 var(--gutter) 12px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .area-info {
+    grid-area: info;
+  }
+  .area-board {
+    grid-area: board;
+  }
+  /* The room under the board is shared out: number keys in the middle, action icons near the bottom. */
+  .area-controls {
+    grid-area: controls;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 12px;
+    min-width: 0;
+    padding-bottom: 8px;
+  }
+
+  /* Round keys, five to a row: 1-5, then 6-9 and erase. */
+  .numpad {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px 10px;
+    width: 100%;
+    max-width: 380px;
+    margin-inline: auto;
+  }
+
+  .numpad-key {
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    padding: 0;
+  }
+
+  /* Short phones: a single row of nine keeps the board large. */
+  @media (max-width: 767px) and (max-height: 780px) {
+    .game-shell {
+      --chrome: calc(290px + var(--safe-top) + var(--safe-bottom));
+    }
+  }
+
+  /* Tablet portrait: a larger board with a single row of nine keys, like a hardware keypad. */
+  @media (min-width: 768px) and (orientation: portrait) {
+    .game-shell {
+      --gutter: 32px;
+      --chrome: calc(312px + var(--safe-top) + var(--safe-bottom));
+      --board-size: min(calc(100vw - var(--gutter) * 2), calc(100dvh - var(--chrome)), 700px);
+    }
+    .numpad {
+      max-width: 420px;
+    }
+  }
+
+  /* Landscape tablets, laptops and desktops. */
+  @media (min-width: 768px) and (orientation: landscape) {
+    .game-shell {
+      --gutter: 32px;
+      --panel: clamp(300px, 28vw, 380px);
+      --chrome: calc(84px + var(--safe-top) + var(--safe-bottom));
+      --board-size: min(
+        calc(100vw - var(--panel) - var(--gutter) * 3 - var(--safe-left) - var(--safe-right)),
+        calc(100dvh - var(--chrome)),
+        780px
+      );
+    }
+    .game-bar {
+      padding: 0 16px;
+      height: 60px;
+    }
+    .game-layout {
+      grid-template-columns: var(--board-size) var(--panel);
+      grid-template-rows: 1fr min-content min-content 1fr;
+      grid-template-areas: "board ." "board info" "board controls" "board .";
+      column-gap: var(--gutter);
+      row-gap: 16px;
+      align-content: center;
+      padding-bottom: 20px;
+    }
+  }
+
+  @media (min-width: 768px) and (orientation: landscape) and (max-height: 640px) {
+    .numpad {
+      max-width: 280px;
+    }
+    .area-controls {
+      gap: 8px;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Motion: shared transitions and entrances                                   */
+/* -------------------------------------------------------------------------- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Every card rises in, one after another. */
+.rise,
+.enter {
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rise:nth-child(2) {
+  animation-delay: 70ms;
+}
+.rise:nth-child(3) {
+  animation-delay: 140ms;
+}
+.rise:nth-child(4) {
+  animation-delay: 210ms;
+}
+.rise:nth-child(5) {
+  animation-delay: 280ms;
+}
+.rise:nth-child(n + 6) {
+  animation-delay: 340ms;
+}
+
+/* Springy press and smooth hover on everything tappable (the board has its own feedback). */
+button:not(:disabled):not(.board-grid button),
+a[href] {
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    opacity 0.25s ease,
+    box-shadow 0.3s ease;
+}
+button:not(:disabled):not(.board-grid button):active,
+a[href]:active {
+  transform: scale(0.95);
+}
+@media (hover: hover) {
+  button:not(:disabled):not(.board-grid button):not(.numpad-key):hover,
+  a[href].lift:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Motion preferences                                                         */
+/* -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Display type: friendly, geometric and confident. */
+.font-serif {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Atmosphere and surfaces                                                    */
+/* -------------------------------------------------------------------------- */
+
+/* A soft accent glow behind every screen. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 40% at 85% -5%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(50% 35% at 0% 105%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
+}
+
+/* Cards: rounder, softly lit from above, lifting on hover. */
+.rise {
+  border-radius: 22px;
+  background-image: linear-gradient(165deg, color-mix(in oklab, var(--accent) 5%, transparent), transparent 55%);
+  box-shadow:
+    0 1px 0 color-mix(in oklab, var(--ink) 6%, transparent) inset,
+    0 10px 30px -18px rgb(0 0 0 / 0.45);
+}
+@media (hover: hover) {
+  .rise {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease,
+      box-shadow 0.35s ease;
+  }
+  .rise:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--accent) 35%, var(--line));
+  }
+}
+
+/* The two headline tiles carry the accent. */
+.tile-hero {
+  background-image: linear-gradient(150deg, color-mix(in oklab, var(--accent) 20%, transparent), transparent 75%);
+  border-color: color-mix(in oklab, var(--accent) 35%, var(--line));
+}
+.tile-hero .tabular {
+  color: var(--accent);
+}
+
+/* Section labels get a leading accent bar. */
+.eyebrow {
+  font-weight: 650;
+}
+
+h1.font-serif {
+  background: linear-gradient(180deg, var(--ink) 55%, color-mix(in oklab, var(--ink) 55%, var(--accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* On touch screens (the Android app) scrollbars are noise: the content just scrolls. */
+@media (pointer: coarse) {
+  * {
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+html,
+body {
+  overscroll-behavior: none;
+}

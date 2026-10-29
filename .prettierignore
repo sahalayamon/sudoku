@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+package-lock.json
+supabase/functions/_shared
+*.sql
+android
+ios
+public/workers
+dist

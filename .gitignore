@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+.env
+.env.local
+.DS_Store
+coverage
+supabase/functions/_shared/sudoku
+.supabase
+public/workers
+dist
+android/keystore.properties
+*.keystore
+*.jks
